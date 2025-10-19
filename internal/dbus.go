@@ -104,6 +104,7 @@ func (n DBusNotify) Notify(
 	nf := NewNotification()
 
 	parse_hints(&nf, hints)
+	from_icon(&nf, app_icon)
 
 	// Setting min-width, left alignment
 	summary = fmt.Sprintf("%-60s", summary)
@@ -177,6 +178,32 @@ func SendCloseSignal(timeout int32, id uint32, reason uint32, flag chan uint32) 
 	)
 
 	delete(ongoing_notifications, id)
+}
+
+func from_icon(nf *Notification, app_icon string) {
+	icon := newIconStruct()
+	color := newColorStruct()
+	app_icon = strings.ToUpper(app_icon)
+	switch app_icon {
+	case "WARNING":
+		nf.icon.value = icon.WARNING
+		nf.color.value = color.HEX("ffcc67")
+	case "INFO":
+		nf.icon.value = icon.INFO
+		nf.color.value = color.HEX("80ffff")
+	case "HINT":
+		nf.icon.value = icon.HINT
+		nf.color.value = color.HEX("b3ffcc")
+	case "ERROR":
+		nf.icon.value = icon.ERROR
+		nf.color.value = color.HEX("ff4d4d")
+	case "CONFUSED", "QUESTION":
+		nf.icon.value = icon.CONFUSED
+		nf.color.value = color.HEX("ffcc99")
+	case "OK", "SUCCESS":
+		nf.icon.value = icon.OK
+		nf.color.value = color.HEX("80ff80")
+	}
 }
 
 func parse_hints(nf *Notification, hints map[string]dbus.Variant) {
