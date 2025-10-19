@@ -263,7 +263,7 @@ func InitDBus(enable_sound bool) {
 	}
 
 	if reply != dbus.RequestNameReplyPrimaryOwner {
-		fmt.Fprintln(os.Stderr, "name already taken")
+		fmt.Fprintln(os.Stderr, "org.freedesktop.Notifications already registred")
 		os.Exit(1)
 	}
 	select {}
