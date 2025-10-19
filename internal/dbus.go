@@ -38,7 +38,7 @@ const DBUS_XML = `<node name="` + FDN_PATH + `">
           <arg direction="in"  name="hints"           type="a{sv}"/>
           <arg direction="in"  name="expire_timeout"  type="i"/>
           <arg direction="out" name="id"              type="u"/>
-      </method> 
+      </method>
 
       <method name="GetServerInformation">
           <arg direction="out" name="name"            type="s"/>
@@ -130,9 +130,9 @@ func (n DBusNotify) Notify(
 	}
 	hyprsock.SendNotification(&nf)
 
-	if sound {
-		go PlayAudio()
-	}
+	// if sound {
+	// 	go PlayAudio()
+	// }
 	// ClosedNotification Signal Stuff
 	flag := make(chan uint32, 1)
 	ongoing_notifications[current_id] = flag
@@ -222,9 +222,9 @@ func InitDBus(enable_sound bool) {
 	defer conn.Close()
 
 	GetHyprSocket(&hyprsock)
-	if sound {
-		InitSpeaker()
-	}
+	// if sound {
+	// 	InitSpeaker()
+	// }
 
 	n := DBusNotify(PACKAGE)
 	conn.Export(n, FDN_PATH, FDN_IFAC)

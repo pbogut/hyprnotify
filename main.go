@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/codelif/hyprnotify/internal"
+	"github.com/pbogut/hyprnotify/internal"
 	"github.com/spf13/cobra"
 )
 
